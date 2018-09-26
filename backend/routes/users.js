@@ -40,6 +40,22 @@ router.post('/register', (req, res) => {
   }
 });
 
+router.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
+  User.find({}, function(err, users) {
+    console.log(users);
+    res.json(users);
+  });
+});
+
+router.get('/user/:id' , (req, res) => {
+  User.findById(req.params.id, (err, user) => {
+      res.json(user);
+  });
+});
+
+
+
+
 router.get('/login', (req, res) => {
   res.json({
     message: 'user logged in'
